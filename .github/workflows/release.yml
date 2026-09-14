@@ -22,10 +22,10 @@ jobs:
       # `password:` here silently turns this back into token auth.
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.13"
 
@@ -114,19 +114,19 @@ jobs:
           repositories: homebrew-tap
 
       - name: Checkout tap repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: magmacrunch-media/homebrew-tap
           token: ${{ steps.app-token.outputs.token }}
           path: tap
 
       - name: Checkout magmascript repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: magmascript
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.13"
 
