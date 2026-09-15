@@ -659,6 +659,12 @@ Full documentation on the [Wiki](https://github.com/magmacrunch-media/magmascrip
 - [Asthenosphere](https://github.com/magmacrunch-media/magmascript/wiki/Asthenosphere)
 - [Architecture](https://github.com/magmacrunch-media/magmascript/wiki/Architecture)
 
+## Support This Project
+
+If you find magmascript useful, consider supporting its development:
+
+[![Sponsor](https://img.shields.io/badge/%E2%9D%A4_Sponsor-pink)](https://github.com/sponsors/magmacrunch-media)
+
 ## License
 
 MIT
