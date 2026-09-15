@@ -52,6 +52,7 @@ Homepage = "https://magmacrunch.com/ware/magmascript/"
 Documentation = "https://github.com/magmacrunch-media/magmascript/wiki"
 Repository = "https://github.com/magmacrunch-media/magmascript"
 Changelog = "https://github.com/magmacrunch-media/magmascript/blob/main/CHANGELOG.md"
+Funding = "https://github.com/sponsors/magmacrunch-media"
 
 [tool.setuptools.packages.find]
 include = ["magmascript*"]
