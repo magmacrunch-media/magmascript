@@ -189,7 +189,12 @@ def generate_formula(version: str, main_sha256: str, deps: list[dict]) -> str:
   end
 
   test do
-    assert_match version.to_s, shell_output("#{{bin}}/magmascript --help")
+    # --help prints usage and the domain list, never a version, so it can only
+    # prove the console script runs. Assert the version against the package.
+    assert_match "domain-first subcommands", shell_output("#{{bin}}/magmascript --help")
+
+    output = shell_output("#{{libexec}}/bin/python -c 'import magmascript; print(magmascript.__version__)'")
+    assert_match version.to_s, output
   end
 end
 '''
