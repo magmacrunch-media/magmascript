@@ -5,7 +5,24 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+from magmascript import cli
 from magmascript.cli import main
+
+
+@pytest.fixture(autouse=True)
+def fresh_domain_registration():
+    """Register the domains again inside each test.
+
+    Registration binds each domain's client class once, at first use, so the
+    first test to reach it would fix its own patched MCPClient in place for
+    every later test -- test_scoreboards_action then asserts against a mock the
+    handler never calls. This order dependence was hidden while registration
+    never ran at all (3.2.2 and 3.2.3, where these tests failed as "Unknown
+    domain" instead).
+    """
+    cli._DOMAINS_REGISTERED = False
+    yield
+    cli._DOMAINS_REGISTERED = False
 
 
 class TestCLI:

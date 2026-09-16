@@ -43,6 +43,14 @@ from magmascript.domains.mcp.tools import (
 )
 
 
+def _user_agent() -> str:
+    # Imported here, not at module level: magmascript/__init__.py imports this
+    # module. It was a literal "magmascript/3.2.2", still sent by 3.2.3.
+    from magmascript import __version__
+
+    return f"magmascript/{__version__} (https://github.com/magmacrunch-media/magmascript)"
+
+
 def _wrap_mcp_error(e: Exception, context: str = "") -> Exception:
     """Wrap RPC and HTTP exceptions into typed magmascript errors."""
     if isinstance(e, RPCError):
@@ -262,7 +270,7 @@ class MCPClient:
         """Search MusicBrainz for releases by query string."""
         url = "https://musicbrainz.org/ws/2/release/"
         params = {"query": query, "fmt": "json", "limit": limit}
-        headers = {"User-Agent": "magmascript/3.2.2 (https://github.com/magmacrunch-media/magmascript)"}
+        headers = {"User-Agent": _user_agent()}
         try:
             resp = httpx.get(url, params=params, headers=headers, timeout=10.0)
             resp.raise_for_status()
@@ -275,7 +283,7 @@ class MCPClient:
         """Get full release details including track list with recordings."""
         url = f"https://musicbrainz.org/ws/2/release/{mbid}"
         params = {"fmt": "json", "inc": "artist-credits+recordings"}
-        headers = {"User-Agent": "magmascript/3.2.2 (https://github.com/magmacrunch-media/magmascript)"}
+        headers = {"User-Agent": _user_agent()}
         try:
             resp = httpx.get(url, params=params, headers=headers, timeout=10.0)
             resp.raise_for_status()
@@ -288,7 +296,7 @@ class MCPClient:
         """Get recording details including ISRCs and work relationships."""
         url = f"https://musicbrainz.org/ws/2/recording/{mbid}"
         params = {"fmt": "json", "inc": "artist-credits+isrcs+work-rels"}
-        headers = {"User-Agent": "magmascript/3.2.2 (https://github.com/magmacrunch-media/magmascript)"}
+        headers = {"User-Agent": _user_agent()}
         try:
             resp = httpx.get(url, params=params, headers=headers, timeout=10.0)
             resp.raise_for_status()

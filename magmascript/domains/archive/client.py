@@ -98,7 +98,7 @@ class ArchiveClient:
             "events": "c-events",
             "games": "c-games",
             "links": "c-links",
-            "music videos": "c-music-videos",
+            "videos": "c-videos",
             "network": "c-network",
             "documentary": "c-documentary",
             "personnel": "c-personnel",

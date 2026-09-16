@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import datetime
 from functools import wraps
 from typing import Callable
 
@@ -66,7 +67,12 @@ def _generate_channels_js(channels: list[dict]) -> str:
 
 # -- register domain commands --------------------------------------------
 
+_DOMAINS_REGISTERED = False
+
+
 def _register_domains():
+    global _DOMAINS_REGISTERED
+
     from magmascript.domains.mcp import MCPClient
     from magmascript.domains.pi import PIClient
     from magmascript.domains.mac import MacClient
@@ -137,6 +143,8 @@ def _register_domains():
         _dispatch_search(action, args, client, fmt)
 
     register("search", "Site search index builder")(_search_handler)
+
+    _DOMAINS_REGISTERED = True
 
 
 # -- register built-in meta commands ------------------------------------
@@ -437,8 +445,15 @@ def main():
         no_cache = True
         rest.remove("--no-cache")
 
-    # Register domain commands (lazy, on first use)
-    if not COMMANDS:
+    # Register domain commands (lazy, on first use).
+    #
+    # This was `if not COMMANDS:`, which assumed the table starts empty. It did
+    # until 3.2.2 registered the built-in commands (run, repl, cache, ...) with
+    # @register at import. From then on COMMANDS was never empty, this never
+    # ran, and every domain command -- archive, mb, lastfm, scores, search and
+    # the rest -- failed as "Unknown domain" in 3.2.2 and 3.2.3. A flag says
+    # what is actually meant: have the domains been registered yet.
+    if not _DOMAINS_REGISTERED:
         _register_domains()
 
     try:

@@ -1,6 +1,15 @@
 """magmascript — a scripting toolkit with domain-first subcommands."""
 
-__version__ = "3.2.2"
+# The version lives in pyproject.toml alone. It was also a literal here, and the
+# two drifted: 3.2.3 shipped reporting itself as 3.2.2, in the REPL banner and
+# in the MCP client's User-Agent.
+from importlib.metadata import PackageNotFoundError as _PackageNotFoundError
+from importlib.metadata import version as _version
+
+try:
+    __version__ = _version("magmascript")
+except _PackageNotFoundError:  # running from a source tree that was never installed
+    __version__ = "0+unknown"
 
 from magmascript.core.config import Config, GHConfig, MediaConfig, MC1Config, PIConfig, get_config, load_config, set_config
 from magmascript.core.registry import get_domain, list_domains, register_domain

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.4] - 2026-09-16
+
+### Fixed
+- Domain commands work again. In 3.2.2 and 3.2.3 every one of them -- `archive`,
+  `mb`, `lastfm`, `scores`, `search`, `mcp`, `pi` and the rest -- failed with
+  `Unknown domain`. Domains were registered only while the command table was
+  empty, and from 3.2.2 the built-in commands filled it at import.
+- `scores report --post-discussion` no longer dies with
+  `NameError: name 'datetime' is not defined` before posting. This affected
+  every release.
+- `archive check-format` knows the site's `videos` sub-nav label, which replaced
+  `music videos`. It had been skipping those buttons entirely rather than
+  checking them.
+- `magmascript.__version__` and the MCP client's User-Agent come from the
+  package metadata. 3.2.3 reported itself as 3.2.2 in both.
+
 ## [3.2.3] - 2026-09-14
 
 ### Added
