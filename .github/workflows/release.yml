@@ -157,8 +157,13 @@ jobs:
       - name: Generate updated formula
         run: python magmascript/scripts/update-formula.py ${{ steps.version.outputs.version }} tap/Formula/magmascript.rb
 
+      # v8, not v6. v6 sets its own Authorization header, and actions/checkout
+      # v6+ (this file moved to v7 in ca57fdf) already persists one, so the push
+      # carried two and GitHub answered 400 "Duplicate header: Authorization".
+      # 3.2.3 and 3.2.4 opened no formula PR because of it; fixed upstream in
+      # create-pull-request 7.0.9.
       - name: Create PR
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app-token.outputs.token }}
           path: tap
