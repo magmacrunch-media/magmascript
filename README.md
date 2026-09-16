@@ -664,6 +664,7 @@ Full documentation on the [Wiki](https://github.com/magmacrunch-media/magmascrip
 If you find magmascript useful, consider supporting its development:
 
 [![Sponsor](https://img.shields.io/badge/%E2%9D%A4_Sponsor-pink)](https://github.com/sponsors/magmacrunch-media)
+[![PayPal](https://img.shields.io/badge/Donate-PayPal-blue)](https://www.paypal.biz/magmacrunchmedia)
 
 ## License
 
